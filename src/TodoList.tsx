@@ -16,12 +16,7 @@ function TodoList(){
     const [todos, setTodos] = useState<TodoItem[]>(todoData)
     const [newtodo, setNewTodo] = useState<string>("")
     const onClickButton = (e: any) => {
-        const newTodos = [...todos, {id:uuidv4(),value:newtodo,isEditing:false,isDone:false}]
-        setAndSortTodos(newTodos)
-        setNewTodo("")
-        if(inputEl.current){
-            inputEl.current.focus() 
-        }
+        createTodo()
     }
     const onChangeNewTodoItem = (e: any) => {
         setNewTodo(e.target.value)
@@ -39,8 +34,7 @@ function TodoList(){
         setAndSortTodos(newTodos, false)
     }
     const onClickSave = (id:string) =>{
-        const newTodos = todos.map( (todoItem) => todoItem.id === id ? {...todoItem, isEditing:false} : todoItem)
-        setAndSortTodos(newTodos)
+        editTodo(id)
     }
     const onClickDone = (id:string) =>{
         const newTodos = todos.map( (todoItem) => todoItem.id === id ? {...todoItem, isDone:!todoItem.isDone} : todoItem)
@@ -60,10 +54,38 @@ function TodoList(){
         }
         setTodos(sortedTodos)
     }
+    const createTodo = () =>{
+        const newTodos = [...todos, {id:uuidv4(),value:newtodo,isEditing:false,isDone:false}]
+        setAndSortTodos(newTodos)
+        setNewTodo("")
+        if(inputEl.current){
+            inputEl.current.focus() 
+        }
+    }
+    const editTodo = (id:string) => {
+        const newTodos = todos.map( (todoItem) => todoItem.id === id ? {...todoItem, isEditing:false} : todoItem)
+        setAndSortTodos(newTodos)
+    }
+
+    const onKeyUp = (event:React.KeyboardEvent<HTMLInputElement>) => {
+        if(isKeyEnter(event.key)){
+            createTodo()
+        }
+    }
+
+    const onKeyUpEdit = (event:React.KeyboardEvent<HTMLInputElement>, id:string) => {
+        if(isKeyEnter(event.key)){
+            editTodo(id)
+        }
+    }
+
+    const isKeyEnter = (key:string) => {
+        return key === 'Enter'
+    }
 
     return (
         <div>
-            <input type="text" onChange={onChangeNewTodoItem} value={newtodo} ref={inputEl} autoFocus/> 
+            <input type="text" onKeyUp={onKeyUp} onChange={onChangeNewTodoItem} value={newtodo} ref={inputEl} autoFocus/> 
             <input type="submit" disabled={newtodo.trim().length===0} onClick={onClickButton} value="submit"/>
             <ul className = "padding-elements">
                 { 
@@ -72,7 +94,7 @@ function TodoList(){
                             </span> 
                         {val.isEditing 
                             ? <>
-                                <input className = "input-field" type="text" value={val.value} onChange={ (e) => onChangeExistingTodoItem(e, val.id)} autoFocus/> 
+                                <input className = "input-field" type="text" onKeyUp={(e) => onKeyUpEdit(e,val.id)} value={val.value} onChange={ (e) => onChangeExistingTodoItem(e, val.id)} autoFocus/> 
                                 <button className = "todo-button save-button" onClick={() => onClickSave(val.id)}>save</button>
                               </>
                             : <>
