@@ -1,0 +1,60 @@
+.todo-item-status-icon{
+    width: 20px;
+    border: 2px solid white;
+    display: inline-block;
+    height: 20px;
+    position: relative;
+    vertical-align: bottom;
+    margin-right: 5px;
+    border-radius: 14px;
+}
+
+.todo-item-status-icon:hover{
+    cursor: pointer;
+    background-color:#4e5258;
+}
+
+.todo-item-status-icon.is-done::before {
+    position: absolute;
+    left: -4px;
+    top: 45%;
+    height: 25%;
+    width: 3px;
+    background-color: #336699;
+    content: "";
+    transform: translateX(10px) rotate(-45deg);
+    transform-origin: left bottom;
+}
+
+.todo-item-status-icon.is-done::after {
+    position: absolute;
+    left: -2px;
+    bottom: 4px;
+    height: 3px;
+    width: 70%;
+    background-color: #336699;
+    content: "";
+    transform: translateX(10px) rotate(-45deg);
+    transform-origin: left bottom;
+}
+
+.todo-button{
+    height: 24px;
+    float: right;
+    margin-left: 5px;
+}
+.padding-elements{
+    padding: 0px;
+}
+
+.todo-separate-items{
+    margin-bottom: 3px;
+}
+
+.save-button{
+    margin-top: 2px;
+}
+
+.input-field{
+    width: 142px;
+}
