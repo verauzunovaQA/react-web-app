@@ -22,6 +22,9 @@ function TodoList(){
         setNewTodo(e.target.value)
     }
     const onChangeExistingTodoItem = (e: any, id: string) => {
+        if(e.target.value.trim().length === 0){
+            return
+        }
         const newTodos = todos.map( (todoItem) => todoItem.id === id ? {...todoItem, value: e.target.value} : todoItem)
         setAndSortTodos(newTodos)
     }
@@ -55,6 +58,9 @@ function TodoList(){
         setTodos(sortedTodos)
     }
     const createTodo = () =>{
+        if(newtodo.trim().length === 0){
+            return
+        }
         const newTodos = [...todos, {id:uuidv4(),value:newtodo,isEditing:false,isDone:false}]
         setAndSortTodos(newTodos)
         setNewTodo("")
