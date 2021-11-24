@@ -91,8 +91,8 @@ function TodoList(){
 
     return (
         <div>
-            <input type="text" onKeyUp={onKeyUp} onChange={onChangeNewTodoItem} value={newtodo} ref={inputEl} autoFocus/> 
-            <input type="submit" disabled={newtodo.trim().length===0} onClick={onClickButton} value="submit"/>
+            <input className = "new-todo-input" type="text" onKeyUp={onKeyUp} onChange={onChangeNewTodoItem} value={newtodo} ref={inputEl} autoFocus/> 
+            <input className = "create-new-todo-button" type="submit" disabled={newtodo.trim().length===0} onClick={onClickButton} value="submit"/>
             <ul className = "padding-elements">
                 { 
                     todos.map( val => <li className = "todo-separate-items" key={val.id}>
@@ -104,7 +104,7 @@ function TodoList(){
                                 <button className = "todo-button save-button" onClick={() => onClickSave(val.id)}>save</button>
                               </>
                             : <>
-                                {val.value} {' '}
+                                <span className = "input-list-items">{val.value} {' '}</span>
                                 <button className = "todo-button" onClick={ () => onClickEdit(val.id)}>edit</button>
                                 {' '}
                                 <button className = "todo-button" onClick={ () => onClickRemove(val.id)}>remove</button>

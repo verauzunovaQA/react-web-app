@@ -48,7 +48,9 @@
 }
 
 .todo-separate-items{
-    margin-bottom: 3px;
+    margin-bottom: 7px;
+    display: flex;
+    align-items: center;
 }
 
 .save-button{
@@ -57,4 +59,17 @@
 
 .input-field{
     width: 142px;
+}
+
+.input-list-items{
+    flex: 1;
+    margin-top: -8px;
+}
+
+.new-todo-input{
+    font-size: 26px;
+}
+
+.create-new-todo-button{
+    font-size: 26px;
 }
