@@ -23,13 +23,14 @@ export function TodoItem(props:Props){
             {props.todoItem.isEditing 
                 ? <>
                     <input className = "input-field" type="text" onKeyUp={(e) => props.onKeyUpEdit(e.key, props.todoItem.id)} value={props.todoItem.value} onChange={ (e) => props.onChangeExistingTodoItem(e.currentTarget.value, props.todoItem.id)} autoFocus/> 
-                    <button className = "todo-button save-button" onClick={() => props.onClickSave(props.todoItem.id)}>save</button>
+                    <button className = "todo-button save-button" data-testid = "todo-item-save-button" onClick={() => props.onClickSave(props.todoItem.id)}>save</button>
                     </>
                 : <>
-                    <span className = "input-list-items">{props.todoItem.value} {' '}</span>
-                    <button className = "todo-button" onClick={ () => props.onClickEdit(props.todoItem.id)}>edit</button>
+                    <span className = "input-list-items" data-testid = "todo-item-value">{props.todoItem.value}</span>
                     {' '}
-                    <button className = "todo-button" onClick={ () => props.onClickRemove(props.todoItem.id)}>remove</button>
+                    <button className = "todo-button" data-testid = "todo-item-edit-button" onClick={ () => props.onClickEdit(props.todoItem.id)}>edit</button>
+                    {' '}
+                    <button className = "todo-button" data-testid = "todo-item-remove-button" onClick={ () => props.onClickRemove(props.todoItem.id)}>remove</button>
                 </>
             }    
         </li>

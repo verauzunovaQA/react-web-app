@@ -39,9 +39,10 @@
 }
 
 .todo-button{
-    height: 24px;
+    height: 35px;
     float: right;
-    margin-left: 5px;
+    margin: 1px;
+    font-size: large;
 }
 .padding-elements{
     padding: 0px;
@@ -59,6 +60,8 @@
 
 .input-field{
     width: 142px;
+    height: 28px;
+    font-size: 25px;
 }
 
 .input-list-items{
