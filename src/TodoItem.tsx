@@ -18,11 +18,11 @@ interface Props{
 export function TodoItem(props:Props){
     return(
         <li className = "todo-separate-items">
-            <span className = {`todo-item-status-icon${props.todoItem.isDone ? ' is-done':''}`} onClick={ () => props.onClickDone(props.todoItem.id)}>
+            <span className = {`todo-item-status-icon${props.todoItem.isDone ? ' is-done':''}`} data-testid = 'todo-item-toggle-done' onClick={ () => props.onClickDone(props.todoItem.id)}>
             </span> 
             {props.todoItem.isEditing 
                 ? <>
-                    <input className = "input-field" type="text" onKeyUp={(e) => props.onKeyUpEdit(e.key, props.todoItem.id)} value={props.todoItem.value} onChange={ (e) => props.onChangeExistingTodoItem(e.currentTarget.value, props.todoItem.id)} autoFocus/> 
+                    <input className = "input-field" data-testid = "todo-item-change-existing-item" type="text" onKeyUp={(e) => props.onKeyUpEdit(e.key, props.todoItem.id)} value={props.todoItem.value} onChange={ (e) => props.onChangeExistingTodoItem(e.currentTarget.value, props.todoItem.id)} autoFocus/> 
                     <button className = "todo-button save-button" data-testid = "todo-item-save-button" onClick={() => props.onClickSave(props.todoItem.id)}>save</button>
                     </>
                 : <>
