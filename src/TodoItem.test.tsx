@@ -106,3 +106,17 @@ test('should invoke onChangeExistingTodoItem when changing an item', () => {
         fireEvent.keyUp(todoItemChangeExistingItem, {key: 'Enter'})
         expect(mockOnKeyUpEdit).toBeCalledWith("Enter", todoItemBeingEdited.id)
 })
+
+test('should show check mark for a todo item that is done', () => {
+    const todoItemIsDone:TodoItemObj = {...todoItem,isDone:true}
+    render(<TodoItem
+        todoItem = {todoItemIsDone}
+        onChangeExistingTodoItem = {() => null} 
+        onClickDone = {() => null} 
+        onClickEdit = {() => null} 
+        onClickRemove = {() => null} 
+        onClickSave = {() => null} 
+        onKeyUpEdit = {() => null}/>)
+    const todoItemDoneEl = screen.getByTestId("todo-item-toggle-done")
+    expect(todoItemDoneEl).toHaveClass("is-done")
+})
