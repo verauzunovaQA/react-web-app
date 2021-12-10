@@ -4,7 +4,7 @@ import { storeInput } from "./storage";
 import { TodoItem, TodoItemObj } from "./TodoItem";
 import './TodoList.css';
 
-function TodoList(){
+export function TodoList(){
     const todoData= storeInput.get("todos") ?? []
     const inputEl = useRef<HTMLInputElement>(null);
     const [todos, setTodos] = useState<TodoItemObj[]>(todoData)
@@ -85,9 +85,9 @@ function TodoList(){
 
     return (
         <div>
-            <input className = "new-todo-input" type="text" onKeyUp={onKeyUp} onChange={onChangeNewTodoItem} value={newtodo} ref={inputEl} autoFocus/> 
-            <input className = "create-new-todo-button" type="submit" disabled={newtodo.trim().length===0} onClick={onClickButton} value="submit"/>
-            <ul className = "padding-elements">
+            <input className = "new-todo-input" data-testid = 'todo-list-new-todo-input' type="text" onKeyUp={onKeyUp} onChange={onChangeNewTodoItem} value={newtodo} ref={inputEl} autoFocus/> 
+            <input className = "create-new-todo-button" data-testid = 'todo-list-new-todo-button' type="submit" disabled={newtodo.trim().length===0} onClick={onClickButton} value="submit"/>
+            <ul className = "padding-elements" data-testid = 'todo-list-container'>
                 { 
                     todos.map( val => <TodoItem 
                         key = {val.id}
