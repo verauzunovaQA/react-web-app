@@ -1,30 +1,18 @@
-import { fireEvent, render, screen, cleanup } from '@testing-library/react';
-import { TodoItem, TodoItemObj } from "./TodoItem";
+import { fireEvent, render, screen } from '@testing-library/react';
 import { TodoList } from './TodoList';
 
-const todoItem:TodoItemObj = {
-    id:"Dummy id",
-    isDone:false,
-    isEditing:false,
-    value:"Read"
-}
-let unmount:() => void
-
-beforeEach( () => {
-    ({unmount} = render(<TodoList />))
-})
-
-afterEach( () => {
-    unmount()
-    cleanup()
+beforeEach(() => {
+    localStorage.clear()
 })
 
 test('Should disable new todo button when input field is empty', () => {
+    render(<TodoList />)
     const newTodoButtonEl = screen.getByTestId('todo-list-new-todo-button')
     expect(newTodoButtonEl).toHaveAttribute('disabled')
 })
 
 test('Should enable new todo button when input field is populated', () => {
+    render(<TodoList />)
     const newTodoInputEl = screen.getByTestId('todo-list-new-todo-input')
     fireEvent.change(newTodoInputEl, {
         target:{
@@ -36,6 +24,7 @@ test('Should enable new todo button when input field is populated', () => {
 })
 
 test('Should create new todo when clicking save button', () => {
+    render(<TodoList />)
     const newTodoInputEl = screen.getByTestId('todo-list-new-todo-input')
     fireEvent.change(newTodoInputEl, {
         target:{
@@ -49,11 +38,12 @@ test('Should create new todo when clicking save button', () => {
     expect(containerEl.children).toHaveLength(1)
 })
 
-/*test('Should not create todo item when the Enter key is pressed and the input field is empty', () => {
+test('Should not create todo item when the Enter key is pressed and the input field is empty', () => {
+    render(<TodoList />)
     const newTodoInputEl = screen.getByTestId('todo-list-new-todo-input')
     fireEvent.keyUp(newTodoInputEl, {
         key:"Enter"
     })
     const containerEl = screen.getByTestId('todo-list-container')
     expect(containerEl.children).toHaveLength(0)
-})*/
+})
