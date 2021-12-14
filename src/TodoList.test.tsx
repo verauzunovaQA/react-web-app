@@ -1,9 +1,16 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { TodoList } from './TodoList';
 
-beforeEach(() => {
+jest.mock('./storage', () => ({
+    storeInput: {
+        get: jest.fn(),
+        add: jest.fn()
+    },
+}))
+
+/*beforeEach(() => {
     localStorage.clear()
-})
+})*/
 
 test('Should disable new todo button when input field is empty', () => {
     render(<TodoList />)
