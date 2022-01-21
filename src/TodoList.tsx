@@ -34,7 +34,7 @@ export function TodoList(){
         editTodo(id)
     }
     const onClickDone = (id:string) =>{
-        const newTodos = todos.map( (todoItem) => todoItem.id === id ? {...todoItem, isDone:!todoItem.isDone} : todoItem)
+        const newTodos = todos.map( (todoItem) => todoItem.id === id ? {...todoItem, isDone:!todoItem.isDone, updatedAt:new Date().toISOString()} : todoItem)
         setAndSortTodos(newTodos)
     }
     const setAndSortTodos = (todos:TodoItemObj[], addToStorage=true) =>{
@@ -55,7 +55,7 @@ export function TodoList(){
         if(newtodo.trim().length === 0){
             return
         }
-        const newTodos = [...todos, {id:uuidv4(),value:newtodo,isEditing:false,isDone:false}]
+        const newTodos = [...todos, {id:uuidv4(),value:newtodo,isEditing:false,isDone:false,createdAt:new Date().toISOString(), updatedAt:new Date().toISOString()}]
         setAndSortTodos(newTodos)
         setNewTodo("")
         if(inputEl.current){
@@ -63,7 +63,7 @@ export function TodoList(){
         }
     }
     const editTodo = (id:string) => {
-        const newTodos = todos.map( (todoItem) => todoItem.id === id ? {...todoItem, isEditing:false} : todoItem)
+        const newTodos = todos.map( (todoItem) => todoItem.id === id ? {...todoItem, isEditing:false, updatedAt:new Date().toISOString()} : todoItem)
         setAndSortTodos(newTodos)
     }
 

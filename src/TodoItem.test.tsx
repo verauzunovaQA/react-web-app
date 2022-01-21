@@ -1,11 +1,14 @@
 import { fireEvent, render, screen } from '@testing-library/react';
+import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import { TodoItem, TodoItemObj } from './TodoItem';
 
 const todoItem:TodoItemObj = {
     id:"Dummy id",
     isDone:false,
     isEditing:false,
-    value:"Read"
+    value:"Read",
+    createdAt:"",
+    updatedAt:""
 }
 
 describe('TodoItem', () => {
@@ -18,7 +21,9 @@ describe('TodoItem', () => {
                 id:"Dummy id",
                 isDone:false,
                 isEditing:false,
-                value:"Read"
+                value:"Read",
+                createdAt:"",
+                updatedAt:""
             }
             
             render(<TodoItem 
@@ -28,7 +33,7 @@ describe('TodoItem', () => {
                 onClickEdit = {mockOnClickEdit} 
                 onClickRemove = {mockOnClickRemove} 
                 onClickSave = {() => null} 
-                onKeyUpEdit = {() => null}/>)
+                onKeyUpEdit = {() => null}/>, {wrapper: MemoryRouter})
         })
         test('then the todoItem value should be displayed', () => {
             const todoItemValueEl = screen.getByTestId("todo-item-value")
@@ -76,7 +81,7 @@ describe('TodoItem', () => {
                 onClickEdit = {() => null} 
                 onClickRemove = {() => null} 
                 onClickSave = {mockOnClickSave} 
-                onKeyUpEdit = {mockOnKeyUpEdit}/>)
+                onKeyUpEdit = {mockOnKeyUpEdit}/>, {wrapper: MemoryRouter})
         })
         describe('when save button is clicked',() =>{
             beforeEach(() =>{
@@ -112,7 +117,7 @@ describe('TodoItem', () => {
         })
         
     })
-    describe('', () => {
+    describe('given todoItemIsDone', () => {
         const todoItemIsDone:TodoItemObj = {...todoItem,isDone:true}
         
         beforeEach(() => {
@@ -123,27 +128,13 @@ describe('TodoItem', () => {
                 onClickEdit = {() => null} 
                 onClickRemove = {() => null} 
                 onClickSave = {() => null} 
-                onKeyUpEdit = {() => null}/>)
+                onKeyUpEdit = {() => null}/>, {wrapper: MemoryRouter})
         })
-        describe('when a todo iten is done', () => {
+        describe('when a todo item is done', () => {
             test('then should show check mark for a todo item', () => {
                 const todoItemDoneEl = screen.getByTestId("todo-item-toggle-done")
                 expect(todoItemDoneEl).toHaveClass("is-done")
             })
         })
     })
-})
-
-test('should show check mark for a todo item that is done', () => {
-    const todoItemIsDone:TodoItemObj = {...todoItem,isDone:true}
-    render(<TodoItem
-        todoItem = {todoItemIsDone}
-        onChangeExistingTodoItem = {() => null} 
-        onClickDone = {() => null} 
-        onClickEdit = {() => null} 
-        onClickRemove = {() => null} 
-        onClickSave = {() => null} 
-        onKeyUpEdit = {() => null}/>)
-    const todoItemDoneEl = screen.getByTestId("todo-item-toggle-done")
-    expect(todoItemDoneEl).toHaveClass("is-done")
 })

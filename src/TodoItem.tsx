@@ -1,8 +1,12 @@
+import { Link } from "react-router-dom";
+
 export interface TodoItemObj{
     id:string
     value:string
     isEditing:boolean
     isDone:boolean
+    createdAt:string
+    updatedAt:string
 }
 
 interface Props{
@@ -26,7 +30,7 @@ export function TodoItem(props:Props){
                     <button className = "todo-button save-button" data-testid = "todo-item-save-button" onClick={() => props.onClickSave(props.todoItem.id)}>save</button>
                     </>
                 : <>
-                    <span className = "input-list-items" data-testid = "todo-item-value">{props.todoItem.value}</span>
+                    <Link className = "input-list-items" data-testid = "todo-item-value" to={`todos/${props.todoItem.id}`}>{props.todoItem.value}</Link>
                     {' '}
                     <button className = "todo-button" data-testid = "todo-item-edit-button" onClick={ () => props.onClickEdit(props.todoItem.id)}>edit</button>
                     {' '}

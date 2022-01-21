@@ -70,8 +70,8 @@ test('Should not update existing todo item when new value is empty', () => {
 
 test('Should update existing todo item when new value is not empty', () => {
     const todoItems: TodoItemObj[] = [
-        {isDone:false,isEditing:false,id:"123",value:"New-new"},
-        {isDone:false,isEditing:false,id:"1234",value:"New-new-"}
+        {isDone:false,isEditing:false,id:"123",value:"New-new",createdAt:"",updatedAt:""},
+        {isDone:false,isEditing:false,id:"1234",value:"New-new-",createdAt:"",updatedAt:""}
     ]
     ;(storeInput.get as jest.Mock).mockReturnValue(todoItems)
     render(<TodoList />)
